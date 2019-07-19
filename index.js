@@ -1,14 +1,26 @@
-const { exec } = require('child_process');
+const lighthouse = require('lighthouse');
+const chromeLauncher = require('chrome-launcher');
+const fs = require('fs');
 
 const lightHousePath = './node_modules/lighthouse/lighthouse-cli/index.js';
 const reportFileName = `./reports/report_${new Date().toISOString()}.json`;
-const parameters = `--quiet --chrome-flags="--headless" --output="json" --output-path="${reportFileName}"`;
+const chromeFlags = ['--headless'];
 const url = 'https://www.idg.se';
 
-exec(`node ${lightHousePath} ${url} ${parameters}`, (err, stdout, stderr) => {
-    if (err) {
-        return console.error(err);
-    }
+function launchLighthouse(url, opts, config = null) {
+    return chromeLauncher.launch({ chromeFlags: opts.chromeFlags }).then(chrome => {
+        opts.port = chrome.port;
+        return lighthouse(url, opts, config).then(results => {
+            return chrome.kill().then(() => results.lhr);
+        });
+    });
+}
 
-    console.log(stdout);
+const opts = {
+    chromeFlags: chromeFlags
+};
+
+launchLighthouse(url, opts).then(results => {
+    var json = JSON.stringify(results, null, 2);
+    fs.writeFileSync(reportFileName, json);
 });
