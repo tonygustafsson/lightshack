@@ -12,8 +12,7 @@ More info:
 ## Plans
 
 -   Monitor: Scheduler to automatically check statistics in given intervals for x number of sites. Saves to LokiDB. Could also give warnings to Slack and Email.
--   Web server: A web socket server that listens to LokiDB and when updated it pushes data to client.
--   Web client: A React client that get's updates from web server.
+-   Web client: A Svelte client that get's updates from lokidb.
 
 ## Run monitor
 

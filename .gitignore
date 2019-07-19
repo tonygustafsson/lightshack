@@ -2,3 +2,5 @@ node_modules
 reports
 package-lock.json
 monitor/database.json
+.DS_Store
+client/public/bundle.*

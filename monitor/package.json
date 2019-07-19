@@ -1,5 +1,5 @@
 {
-    "name": "lightshack",
+    "name": "lightshack-monitor",
     "version": "1.0.0",
     "description": "A monitor using lighthouse CLI",
     "main": "index.js",
