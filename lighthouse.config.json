@@ -1,4 +1,21 @@
 {
     "extends": "lighthouse:default",
-    "settings": {}
+    "settings": {
+        "onlyAudits": [
+            "first-contentful-paint",
+            "first-meaningful-paint",
+            "speed-index",
+            "estimated-input-latency",
+            "errors-in-console",
+            "time-to-first-byte",
+            "first-cpu-idle",
+            "interactive",
+            "user-timings",
+            "mainthread-work-breakdown",
+            "bootup-time",
+            "diagnostics",
+            "metrics",
+            "resource-summary"
+        ]
+    }
 }

@@ -21,6 +21,68 @@ const opts = {
 };
 
 launchLighthouse(url, opts, lighthouseConfig).then(results => {
-    var json = JSON.stringify(results, null, 2);
+    var statistics = {
+        bootupTime: {
+            value: results.audits['bootup-time'].numericValue,
+            score: results.audits['bootup-time'].score
+        },
+        firstConsenfulPaint: {
+            value: results.audits['first-contentful-paint'].numericValue,
+            score: results.audits['first-contentful-paint'].score
+        },
+        firstCpuIdle: {
+            value: results.audits['first-cpu-idle'].numericValue,
+            score: results.audits['first-cpu-idle'].score
+        },
+        firstMeaningfulPaint: {
+            value: results.audits['first-meaningful-paint'].numericValue,
+            score: results.audits['first-meaningful-paint'].score
+        },
+        interactive: {
+            value: results.audits.interactive.numericValue,
+            score: results.audits.interactive.score
+        },
+        images: {
+            requests: results.audits['resource-summary'].details.items[1].requestCount,
+            size: results.audits['resource-summary'].details.items[1].size
+        },
+        fonts: {
+            requests: results.audits['resource-summary'].details.items[2].requestCount,
+            size: results.audits['resource-summary'].details.items[2].size
+        },
+        stylesheets: {
+            requests: results.audits['resource-summary'].details.items[3].requestCount,
+            size: results.audits['resource-summary'].details.items[3].size
+        },
+        document: {
+            requests: results.audits['resource-summary'].details.items[4].requestCount,
+            size: results.audits['resource-summary'].details.items[4].size
+        },
+        other: {
+            requests: results.audits['resource-summary'].details.items[5].requestCount,
+            size: results.audits['resource-summary'].details.items[5].size
+        },
+        media: {
+            requests: results.audits['resource-summary'].details.items[6].requestCount,
+            size: results.audits['resource-summary'].details.items[6].size
+        },
+        thirdParty: {
+            requests: results.audits['resource-summary'].details.items[7].requestCount,
+            size: results.audits['resource-summary'].details.items[7].size
+        },
+        fetchTime: results.fetchTime,
+        url: results.finalUrl,
+        speedIndex: results.audits.metrics.details.items[0].speedIndex,
+        performanceScore: results.categories.performance.score,
+        numRequests: results.audits.diagnostics.details.items[0].numRequests,
+        numScripts: results.audits.diagnostics.details.items[0].numScripts,
+        numStylesheets: results.audits.diagnostics.details.items[0].numStylesheets,
+        totalByteWeight: results.audits.diagnostics.details.items[0].totalByteWeight,
+        errorsInConsole: results.audits['errors-in-console'].numericValue
+    };
+
+    //var json = JSON.stringify(results, null, 2);
+    var json = JSON.stringify(statistics, null, 2);
+
     fs.writeFileSync(reportFileName, json);
 });
