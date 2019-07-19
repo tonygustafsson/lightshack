@@ -3,6 +3,8 @@ const chromeLauncher = require('chrome-launcher');
 const fs = require('fs');
 const path = require('path');
 
+const db = require('./lib/db');
+
 const reportFilePath = path.resolve(__dirname, `reports/report_${new Date().toISOString()}.json`);
 const chromeFlags = ['--headless'];
 const lighthouseConfig = require('./lighthouse.config.json');
@@ -88,4 +90,8 @@ launchLighthouse(url, opts, lighthouseConfig).then(results => {
     var json = JSON.stringify(statistics, null, 2);
 
     fs.writeFileSync(reportFilePath, json);
+
+    db.init('IDG').then(() => {
+        db.saveStatistics(statistics);
+    });
 });
