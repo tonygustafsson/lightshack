@@ -15,9 +15,10 @@ More info:
 -   Web server: A web socket server that listens to LokiDB and when updated it pushes data to client.
 -   Web client: A React client that get's updates from web server.
 
-## Run it
+## Run monitor
 
 ```
+cd monitor
 npm install
 npm start
 ```

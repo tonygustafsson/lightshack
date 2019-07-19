@@ -1,8 +1,9 @@
 const lighthouse = require('lighthouse');
 const chromeLauncher = require('chrome-launcher');
 const fs = require('fs');
+const path = require('path');
 
-const reportFileName = `./reports/report_${new Date().toISOString()}.json`;
+const reportFilePath = path.resolve(__dirname, `reports/report_${new Date().toISOString()}.json`);
 const chromeFlags = ['--headless'];
 const lighthouseConfig = require('./lighthouse.config.json');
 const url = 'https://www.idg.se';
@@ -86,5 +87,5 @@ launchLighthouse(url, opts, lighthouseConfig).then(results => {
     //var json = JSON.stringify(results, null, 2);
     var json = JSON.stringify(statistics, null, 2);
 
-    fs.writeFileSync(reportFileName, json);
+    fs.writeFileSync(reportFilePath, json);
 });
