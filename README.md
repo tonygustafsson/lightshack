@@ -22,6 +22,14 @@ npm install
 npm start
 ```
 
+## Run client
+
+```
+cd client
+npm install
+npm run dev
+```
+
 ## Output example
 
 ```
