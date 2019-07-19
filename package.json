@@ -1,0 +1,15 @@
+{
+    "name": "lightshack",
+    "version": "1.0.0",
+    "description": "A monitor using lighthouse CLI",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Tony Gustafsson",
+    "license": "ISC",
+    "dependencies": {
+        "lighthouse": "^5.1.0"
+    }
+}
