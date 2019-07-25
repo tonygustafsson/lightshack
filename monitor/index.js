@@ -3,12 +3,23 @@ const chromeLauncher = require('chrome-launcher');
 const fs = require('fs');
 const path = require('path');
 
-const db = require('./lib/db');
-
 const reportFilePath = path.resolve(__dirname, `reports/report_${new Date().toISOString()}.json`);
 const chromeFlags = ['--headless'];
 const lighthouseConfig = require('./lighthouse.config.json');
 const url = 'https://www.idg.se';
+
+var dbName = 'lightshack';
+var couch = require('./lib/couchdb');
+
+couch.db.create(dbName, function(err) {
+    if (err && err.statusCode != 412) {
+        console.error(err);
+    } else {
+        console.log('database already exists');
+    }
+});
+
+var db = couch.db.use(dbName);
 
 function launchLighthouse(url, opts, config = null) {
     return chromeLauncher.launch({ chromeFlags: opts.chromeFlags }).then(chrome => {
@@ -91,7 +102,5 @@ launchLighthouse(url, opts, lighthouseConfig).then(results => {
 
     fs.writeFileSync(reportFilePath, json);
 
-    db.init('IDG').then(() => {
-        db.saveStatistics(statistics);
-    });
+    db.insert(statistics);
 });
