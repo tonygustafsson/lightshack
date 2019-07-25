@@ -11,8 +11,8 @@ More info:
 
 ## Plans
 
--   Monitor: Scheduler to automatically check statistics in given intervals for x number of sites. Saves to LokiDB. Could also give warnings to Slack and Email.
--   Web client: A Svelte client that get's updates from lokidb.
+-   Monitor: Scheduler to automatically check statistics in given intervals for x number of sites. Saves to CouchDB. Could also give warnings to Slack and Email.
+-   Web client: A Svelte client that get's updates from pouchdb that syncs from couchdb.
 
 ## Run monitor
 
